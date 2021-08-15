@@ -195,10 +195,6 @@ class SceneOperation(HookClass):
         # is less than or equal to v0.1.11
         from distutils.version import LooseVersion
 
-        if write_node_app.version == "Undefined" or LooseVersion(
-            write_node_app.version
-        ) > LooseVersion("v0.1.11"):
-            return False
 
         write_nodes = write_node_app.get_write_nodes()
         for write_node in write_nodes:
