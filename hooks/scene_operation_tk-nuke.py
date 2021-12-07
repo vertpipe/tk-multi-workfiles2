@@ -158,7 +158,17 @@ class SceneOperation(HookClass):
             # now clear the script:
             nuke.scriptClear()
 
+            # Set OCIO if environment is set
+            self._setup_ocio()
+
             return True
+
+    @staticmethod
+    def _setup_ocio():
+        # Check if OCIO environment is set, and if so, set script to OCIO
+        ocio = os.getenv("OCIO")
+        if ocio:
+            nuke.root().knob("colorManagement").setValue("OCIO")
 
     def _get_current_hiero_project(self):
         """
