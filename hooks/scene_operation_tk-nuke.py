@@ -158,7 +158,17 @@ class SceneOperation(HookClass):
             # now clear the script:
             nuke.scriptClear()
 
+            # Set OCIO if environment is set
+            self._setup_ocio()
+
             return True
+
+    @staticmethod
+    def _setup_ocio():
+        # Check if OCIO environment is set, and if so, set script to OCIO
+        ocio = os.getenv("OCIO")
+        if ocio:
+            nuke.root().knob("colorManagement").setValue("OCIO")
 
     def _get_current_hiero_project(self):
         """
@@ -195,10 +205,6 @@ class SceneOperation(HookClass):
         # is less than or equal to v0.1.11
         from distutils.version import LooseVersion
 
-        if write_node_app.version == "Undefined" or LooseVersion(
-            write_node_app.version
-        ) > LooseVersion("v0.1.11"):
-            return False
 
         write_nodes = write_node_app.get_write_nodes()
         for write_node in write_nodes:

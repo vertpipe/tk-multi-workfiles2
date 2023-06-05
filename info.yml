@@ -267,7 +267,7 @@ configuration:
       type: str
       description: The default name that gets used by when saving a work file using the
                    save-as command
-      default_value: scene
+      default_value: main
 
     saveas_prefer_version_up:
       type: bool
